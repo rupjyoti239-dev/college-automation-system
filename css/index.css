@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.course__submenu {
+  list-style: none;
+  background-color: #fff;
+  color: black;
+  position: absolute;
+  top: 52px;
+  left: 495px;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 10;
+  padding-right: 20px;
+  transition: all 0.7s;
+}
+
+li:hover ul.course__submenu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.admission__submenu {
+  list-style: none;
+  background-color: #fff;
+  color: black;
+  position: absolute;
+  top: 52px;
+  left: 550px;
+  padding-right: 20px;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 10;
+  transition: all 0.7s;
+}
+
+li:hover ul.admission__submenu {
+  opacity: 1;
+  visibility: visible;
+}
