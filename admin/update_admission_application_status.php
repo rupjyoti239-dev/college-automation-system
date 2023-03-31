@@ -8,7 +8,7 @@ if(isset($_GET['id']))
       // echo "Getting the Data";
       $id = $_GET['id'];
        //create sql query to get all data
-       $sql = "select * from `applied_job_tbl` where `id`=$id";
+       $sql = "select * from `student_tbl` where `id`=$id";
 
      $res = mysqli_query($conn, $sql);
      
@@ -22,8 +22,8 @@ if(isset($_GET['id']))
        $f_name = $row['father_name'];
        $address = $row['address'];
        $email = $row['email'];
-       $contact = $row['contact'];
-       $resume = $row['resume'];
+       $contact = $row['mobile'];
+       $pdf = $row['certificate'];
       //  $status = $row['status'];
       
       
@@ -32,13 +32,13 @@ if(isset($_GET['id']))
      else{
        //redirect
       echo "<script>alert('Details not found');</script>";
-       echo "<script>location.href = 'check_job_application.php';</script>";
+       echo "<script>location.href = 'check_admission_application.php';</script>";
      }
     
 } 
 else{
      //redirect to manage car page
-     echo "<script>location.href = 'check_job_application.php';</script>";
+     echo "<script>location.href = 'check_admission_application.php';</script>";
 }
 ?>
 
@@ -48,7 +48,7 @@ else{
 <div class="main_container p-5 ">
 
   <p>
-    <?php echo $resume; ?>
+    <?php echo $pdf; ?>
   </p>
 
   <form action="" method="post">
@@ -83,7 +83,7 @@ else{
 
 
           //. Update the Database
-          $sql2 = "UPDATE `applied_job_tbl` SET 
+          $sql2 = "UPDATE `student_tbl` SET 
           `status` = '$status'
          
           WHERE `id`=$id
@@ -101,11 +101,11 @@ else{
                  if($status == 'selected'){
                    // set teacher id and password
 
-                  $userId = mt_rand(1000, 9999);
+                  $user_id = mt_rand(1000, 9999);
                   $password = mt_rand(1000000, 9999999);
 
-                    $sql3 = "UPDATE `applied_job_tbl` SET 
-                    `user_id` = '$userId',
+                    $sql3 = "UPDATE `student_tbl` SET 
+                    `user_id` = '$user_id',
                     `password` = '$password'
                    
                    WHERE `id`=$id
@@ -116,7 +116,7 @@ else{
                   //  send mail to user
                   $to_email = $email;
                   $subject = "College Automation System";
-                  $body = "Hello,".$name." Your job application is accepted by College Automation System. You can login by using the following UserId and password.  Userid is ".$userId." and password: ".$password; 
+                  $body = "Hello,".$name." Your Admission form is accepted. You can login by using the following ID and Password UserId is ".$user_id." and Password: ".$password; 
                   $headers = "From: rupjyotisarma706@gmail.com";
                   
                   if (mail($to_email, $subject, $body, $headers)) {
@@ -136,7 +136,7 @@ else{
                    $userId = "";
                   $password = "";
 
-                    $sql3 = "UPDATE `applied_job_tbl` SET 
+                    $sql3 = "UPDATE `student_tbl` SET 
                     `user_id` = '$userId',
                     `password` = '$password'
                    
@@ -147,7 +147,7 @@ else{
 
                     $to_email = $email;
                   $subject = "College Automation System";
-                  $body = "You are not selected for the post"; 
+                  $body = "Sorry, Your application is rejected"; 
                   $headers = "From: rupjyotisarma706@gmail.com";
                   
                   if (mail($to_email, $subject, $body, $headers)) {
@@ -170,12 +170,12 @@ else{
 
                    
                   echo "<script>alert('succeddfully updated');</script>";
-                  echo "<script>location.href='check_job_application.php';</script>";
+                  echo "<script>location.href='check_admission_application.php';</script>";
                 }
                 else{
 
                      echo "<script>alert('failed to update');</script>";
-          echo "<script>location.href='check_job_application.php';</script>";
+          echo "<script>location.href='check_admission_application.php';</script>";
                 }
 
        }
