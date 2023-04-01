@@ -293,7 +293,13 @@ session_start();?>
 
 
 
-
+// check course is already exist or not
+  $query = mysqli_query($conn, "SELECT * FROM `applied_job_tbl` WHERE email = '$email' ");
+  if(mysqli_num_rows($query)>0){
+    echo "<script>alert('This email Already Exists!');
+    location.href='job_apply.php';</script>";
+  }else{
+ 
 
    
 
@@ -313,6 +319,7 @@ session_start();?>
         echo "<scrip>location.href='career.php';</script>";
       }
     }
+  }
 ?>
 
 

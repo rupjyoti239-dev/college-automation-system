@@ -1,3 +1,6 @@
+<?php  include('config/connection.php');  
+session_start();?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -100,16 +103,16 @@
         code, check your email.</p>
 
 
-      <form action="">
+      <form action="" method="POST">
 
 
         <div class="d-flex pb-3">
-          <input type="text" class="form-control mx-2" placeholder="registration Id" required>
-          <input type="text" class="form-control mx-2" placeholder="Password" required>
+          <input type="text" class="form-control mx-2" name="userid" placeholder="User Id" required>
+          <input type="text" class="form-control mx-2" name="password" placeholder="Password" required>
         </div>
 
         <div class="d-flex py-2 justify-content-center">
-          <input type="submit" value="Register" class="btn btn-primary ">
+          <input type="submit" value="Login" name="login" class="btn btn-primary ">
         </div>
 
 
@@ -173,3 +176,34 @@
 </body>
 
 </html>
+
+
+
+<?php
+
+  if(isset($_POST['login']))
+  {
+
+    $id = $_POST['userid'];
+    $password = $_POST['password'];
+    
+
+    
+
+      $sql="SELECT * FROM applied_job_tbl WHERE user_id ='$id' AND  `password` ='$password'";
+      $res=mysqli_query($conn,$sql);
+      $count = mysqli_num_rows($res);
+      if($count == 1)
+        {
+           session_start();
+           $_SESSION['login-success'] = '<div class="aletr alert-success text-center py-2 px-2">login Successfully.</div>';
+           $_SESSION['teacher_id'] = $id;
+           echo  "<script>location.href='teacher/teacher_dashboard.php';</script>";
+        }
+       else{
+         echo  "<script>location.href='faculty.php';</script>";
+         echo '<script>alert("teacher Login failed");</script>';
+         
+       }
+}
+?>

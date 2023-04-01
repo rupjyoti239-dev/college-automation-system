@@ -175,7 +175,12 @@
 
 
 
-
+// check course is already exist or not
+  $query = mysqli_query($conn, "SELECT * FROM `student_tbl` WHERE email = '$email' ");
+  if(mysqli_num_rows($query)>0){
+    echo "<script>alert('This email Already Exists!');
+    location.href='apply.php';</script>";
+  }else{
 
    
 
@@ -213,4 +218,5 @@
         echo "<scrip>location.href='apply.php';</script>";
       }
     }
+  }
 ?>

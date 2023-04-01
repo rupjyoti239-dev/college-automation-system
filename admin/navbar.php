@@ -35,7 +35,7 @@ $email = $_SESSION['admin_email'];
  
 <!-- navabr -->
 <section class="py-2" style="background: #537FE7;">
-  <h2 class="text-center text-white">College Automation System</h2>
+  <h2 class="text-center text-white">Admin Dashboard</h2>
 </section>
 
 
@@ -61,7 +61,7 @@ $email = $_SESSION['admin_email'];
            <li>
             <a href=""><i class="bi bi-person-square"></i> &nbsp; STUDENT</a>
             <ul class="submenu">
-                   <li><a href="">Student Info</a></li>
+                   <li><a href="./student_info.php">Student Info</a></li>
                    <li><a href="">Attendence Record</a></li>
                </ul>
           </li>
@@ -111,7 +111,7 @@ $email = $_SESSION['admin_email'];
             <a href=""><i class="bi bi-gear-fill"></i> &nbsp; SETTINGS</a>
             <ul class="submenu">
                    <li><a href="admin_logout.php"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
-                   <li><a href="./check_job_application.php"><i class="bi bi-person-badge"></i> Profile</a></li>
+                   <li><a href="./admin_profile.php"><i class="bi bi-person-badge"></i> Profile</a></li>
                </ul>  
           </li>
 

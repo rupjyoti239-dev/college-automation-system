@@ -59,6 +59,7 @@ else{
                
               </select>
 
+              <input type="text" value="1st" name="semester" hidden>
     <input type="submit" name="submit" value="Update Status"  class="btn btn-primary my-4">
 
   </form>
@@ -80,11 +81,13 @@ else{
           //1. Get all the values from our form
           // $id = $_POST['id'];
           $status = $_POST['status'];
+          $sem = $_POST['semester'];
 
 
           //. Update the Database
           $sql2 = "UPDATE `student_tbl` SET 
-          `status` = '$status'
+          `status` = '$status',
+          `semester` = '$sem'
          
           WHERE `id`=$id
       ";

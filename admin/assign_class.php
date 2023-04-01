@@ -54,7 +54,48 @@
         <input type="text" class="form-control" id="contact" name="contact" value="<?php echo $contact; ?>" readonly>
       </div>
 
-      <div class="pb-3">
+      
+      <div class="bg-success-subtle p-3">
+      <div class="pb-3 ">
+         <label for="course" class="form-label">Course Name</label>
+              <select name="course_name" id="course"  class="form-control" required>
+              <?php  
+                    //get the data from database
+                     $sql = "SELECT * FROM course_tbl ";
+
+                     //execute the query  where department_name LIKE '%$dept_name%'
+                     $res= mysqli_query($conn,$sql);
+
+                    //count rows
+                     $count = mysqli_num_rows($res);
+
+                    //check whether data is available or not
+                    if($count>0)
+           {
+
+             //we have data in database 
+             //get the data and display
+
+             while($row=mysqli_fetch_assoc($res))
+             {
+              
+               $course = $row['course_name'];
+              
+            ?>
+               <!-- <option value="" disabled selected> Courses</option> -->
+              <option value="<?php echo $course; ?>"> <?php echo $course;  ?>  </option> 
+              
+           
+           
+            <?php
+
+             }
+            }
+              ?>
+               </select>
+      </div>
+
+      <div class="pb-3 ">
          <label for="subject" class="form-label">Subject Name</label>
               <select name="subject_name" id="subject"  class="form-control" required>
               <?php  
@@ -94,12 +135,27 @@
       </div>
 
 
+      <div class="pb-3 ">
+        <label for="sem" class="form-label">Semester Name:</label>
+           <select class="form-select" name="semester" id="sem" aria-label="Default select example">
+             <option value="1st">1st Semester</option>
+             <option value="2nd">2nd Semester</option>
+             <option value="3rd">3rd Semester</option>
+             <option value="4th">4th Semester</option>
+             <option value="5th">5th Semester</option>
+             <option value="6th">6th Semester</option>
+           </select>     
+      </div>
+
  <div class="mb-3">
         <input type="submit" value="UPDATE" name="update" class="btn btn-primary">
       </div>
 
 
         </form>
+          </div>       
+
+
       </div>
 
         
@@ -120,6 +176,8 @@
               
               
                $subject = $_POST['subject_name'];
+               $course = $_POST['course_name'];
+               $sem = $_POST['semester'];
               
               
                 // check course is already exist or not
@@ -134,7 +192,9 @@
                  //3. Update the Database
                  $sql2 = "UPDATE `applied_job_tbl` SET 
                 
-                 subject_name = '$subject'
+                 subject_name = '$subject',
+                 course = '$course',
+                 semester = '$sem'
                  
                  
                  WHERE `id`='$id'
