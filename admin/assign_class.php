@@ -135,17 +135,7 @@
       </div>
 
 
-      <div class="pb-3 ">
-        <label for="sem" class="form-label">Semester Name:</label>
-           <select class="form-select" name="semester" id="sem" aria-label="Default select example">
-             <option value="1st">1st Semester</option>
-             <option value="2nd">2nd Semester</option>
-             <option value="3rd">3rd Semester</option>
-             <option value="4th">4th Semester</option>
-             <option value="5th">5th Semester</option>
-             <option value="6th">6th Semester</option>
-           </select>     
-      </div>
+     
 
  <div class="mb-3">
         <input type="submit" value="UPDATE" name="update" class="btn btn-primary">
@@ -177,10 +167,19 @@
               
                $subject = $_POST['subject_name'];
                $course = $_POST['course_name'];
-               $sem = $_POST['semester'];
-              
-              
-                // check course is already exist or not
+
+
+                 $sql = "SELECT * FROM `subject_tbl` WHERE `subject_name` = '$subject' ";
+                 $res = mysqli_query($conn, $sql);
+                            
+                 $count= mysqli_num_rows($res);
+           
+                 if($count==1){
+                   //get all the data
+                   $row = mysqli_fetch_assoc($res);
+                   $semester = $row['semester'];
+
+                   // check course is already exist or not
   $query = mysqli_query($conn, "SELECT * FROM `applied_job_tbl` WHERE subject_name = '$subject'  ");
   if(mysqli_num_rows($query)>0){
     echo "<script>alert('This class is already assign!');
@@ -194,7 +193,7 @@
                 
                  subject_name = '$subject',
                  course = '$course',
-                 semester = '$sem'
+                 semester = '$semester'
                  
                  
                  WHERE `id`='$id'
@@ -216,6 +215,18 @@
 
 
             }
+
+                   
+                  
+                 }
+                 else{
+                   //redirect
+                    echo "<script>alert('data not found');</script>";
+                   echo "<script>location.href='teacher_info.php';</script>";
+                 }
+              
+              
+               
           }
 
        ?>

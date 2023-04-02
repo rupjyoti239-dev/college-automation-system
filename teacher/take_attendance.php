@@ -32,7 +32,9 @@
       <p class="text-center h5 pb-5">Subject: <?php echo $subject; ?>, &nbsp;&nbsp;  <?php echo $course; ?> &nbsp;&nbsp; <?php echo $semester; ?> Semester </p>
 
 
-
+<div class=" p-3">
+<?php $date =  date("Y-m-d");  ?>
+<h2 class="h4 bg-primary py-1 text-white rounded text-center">Take Attendance of: &nbsp; <?php echo $subject; ?>, <?php echo $course; ?> <?php echo $semester; ?> Semester  &nbsp;(<?php echo $date; ?>)</h2>
       <table class="table table-striped ">
     <thead>
       <tr>
@@ -42,6 +44,7 @@
         <th scope="col">semester</th>
         <th scope="col">Contact No</th>
         <th scope="col">Registration No</th>
+        <th scope="col">Status</th>
       </tr>
     </thead>
 
@@ -96,9 +99,25 @@
         <td>
           <?php echo $id; ?>
         </td>
+         <form action="" method="POST">
+         <td>
+          <input type="submit" name="attendance" class="btn btn-success btn-sm" value="present"> &nbsp; &nbsp;
+              <input type="submit" name="attendance" class="btn btn-danger btn-sm" value="absent">
+        </td>
         
         
       </tr>
+
+              <input type="text" name="name" value="<?php echo $name;  ?>" hidden>
+              <input type="text" name="course" value="<?php echo $course;  ?>" hidden>
+              <input type="text" name="semester" value="<?php echo $semester;  ?>" hidden>
+              <input type="text" name="contact" value="<?php echo $contact;  ?>" hidden>
+              <input type="text" name="id" value="<?php echo $id;  ?>" hidden>
+              <input type="text" name="subject" value="<?php echo $subject;  ?>" hidden>
+              <input type="text" name="date" value="<?php echo $date;  ?>" hidden>
+
+
+      </form>  
       <?php
                 
               }
@@ -121,6 +140,7 @@
     </tbody>
 
   </table>
+  </div>
 
 
 
@@ -137,3 +157,72 @@
 
 
 <?php include('./footer.php');  ?>     
+
+
+
+
+
+
+
+<?php
+
+if(isset($_POST['attendance'])){
+
+  $name = $_POST['name'];
+
+  $course = $_POST['course'];
+ 
+  $semester = $_POST['semester'];
+  $contact = $_POST['contact'];
+  $id = $_POST['id'];
+ 
+  $course = $_POST['course'];
+  $date = $_POST['date'];
+  $attendance = $_POST['attendance'];
+  $subject = $_POST['subject'];
+
+
+
+ 
+
+ 
+
+  $query = mysqli_query($conn, "SELECT * FROM `attendance_tbl` WHERE user_id='$id' AND `date`='$date'   ");
+  if(mysqli_num_rows($query)>0){
+    echo "<script>alert('Todays Attendance is already taken!');
+    location.href='take_attendance.php';</script>";
+  }else
+  {
+
+
+
+
+
+  
+
+
+  $insertquery = " insert into attendance_tbl (student_name,student_contact, course, subject, semester, user_id, date, attendance) 
+  values( '$name',  '$contact',  '$course', '$subject', '$semester','$id',  '$date', '$attendance' ) ";
+
+$res = mysqli_query($conn, $insertquery);
+
+if($res){
+
+
+echo "<script>
+location.href='take_attendance.php';</script>";
+}
+else{
+
+echo "<script>
+alert('Failed to take');
+location.href='take_attendance.php';</script>";
+}
+
+
+
+}
+}
+
+
+?>
