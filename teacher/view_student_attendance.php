@@ -49,7 +49,7 @@
     </form>
 
 
-
+<div class="d-flex justify-content-end"><a href="" class="btn btn-sm btn-primary">Print</a></div>
 <table class="table table-striped mt-4">
   <thead class="bg-secondary text-white">
     <tr>
@@ -58,7 +58,7 @@
       <th scope="col">Contact</th>
       <th scope="col">Course</th>
       <th scope="col">Semester</th>
-      <th scope="col">Contact No</th>
+      <th scope="col">Subject</th>
       <th scope="col">Registration No</th>
       <th scope="col">Date</th>
       <th scope="col" >Attendance</th>

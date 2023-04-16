@@ -53,8 +53,8 @@ $email = $_SESSION['admin_email'];
            <li>
             <a href=""><i class="bi bi-person-video2"></i> &nbsp; FACULTIES</a>
                <ul class="submenu">
-                   <li><a href="./teacher_info.php">Teacher Info</a></li>
-                   <!-- <li><a href="">Assign Class</a></li> -->
+                   <li><a href="./teacher_list.php">Teacher List</a></li>
+                   <li><a href="class_list.php">Class List</a></li>
                </ul>
           </li>
 

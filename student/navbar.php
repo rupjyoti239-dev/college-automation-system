@@ -62,8 +62,8 @@ $id = $_SESSION['student_id'];
           <li>
             <a href=""><i class="bi bi-bookmarks"></i> &nbsp; ATTENDANCE</a>
             <ul class="submenu">
-                   <li><a href="add_department.php">Add Department</a></li>
-                   <li><a href="manage_department.php">Manage Department</a></li>
+                   <li><a href="add_department.php">Check Attendance</a></li>
+                   
                </ul>
           </li>
 

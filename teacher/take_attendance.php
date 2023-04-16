@@ -187,7 +187,7 @@ if(isset($_POST['attendance'])){
 
  
 
-  $query = mysqli_query($conn, "SELECT * FROM `attendance_tbl` WHERE user_id='$id' AND `date`='$date'   ");
+  $query = mysqli_query($conn, "SELECT * FROM `attendance_tbl` WHERE user_id='$id' AND `date`='$date' and `subject`='$subject'");
   if(mysqli_num_rows($query)>0){
     echo "<script>alert('Todays Attendance is already taken!');
     location.href='take_attendance.php';</script>";
