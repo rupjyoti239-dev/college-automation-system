@@ -39,6 +39,22 @@
           <input type="text" name="contact" class="form-control mx-2" id="contact" placeholder="99574*****" required>
         </div>
       </div>
+        
+      
+     <div class="d-flex  row pb-3">
+        <div class="d-flex flex-column  col-6">
+          <label for="address" class="form-label">Address</label>
+          <textarea name="address" id="address" cols="30"  placeholder="Address" required ></textarea>
+        </div>
+
+        <div class="d-flex flex-column  col-6">
+          <label for="dob" class="form-label">DOB</label>
+          <input type="date" name="dob" class="form-control mx-2" id="dob"  required>
+        </div>
+      </div>
+
+
+
 
 
       <div class="d-flex  row pb-3">
@@ -47,9 +63,11 @@
           <input type="file" name="pdf" class="form-control mx-2" id="file" required>
         </div>
 
+
+
         <div class="d-flex flex-column  col-6">
           <div class="pb-3">
-        <label for="course">Course Name</label>
+        <label for="course" class="form-label">Course Name</label>
               <select name="course_name" id="course" class="form-control" required>
               <?php  
                     //get the data from database
@@ -94,19 +112,48 @@
 
 
 
+     
+
       <div class="d-flex  row pb-3">
-        <div class="d-flex flex-column  col-6">
-          <label for="address" class="form-label">Address</label>
-          <textarea name="address" id="address" cols="30"  placeholder="Address" required ></textarea>
-        </div>
+          <div class="d-flex flex-column  col-6">
+            <label for="department" class="form-label">Department Name</label>
+              <select name="department_name" id="department" class="form-control" required>
+              <?php  
+                    //get the data from database
+                     $sql = "SELECT * FROM department_tbl";
 
-        <div class="d-flex flex-column  col-6">
-          <label for="dob" class="form-label">DOB</label>
-          <input type="date" name="dob" class="form-control mx-2" id="dob"  required>
-        </div>
-      </div>
+                     //execute the query
+                     $res= mysqli_query($conn,$sql);
 
+                    //count rows
+                     $count = mysqli_num_rows($res);
 
+                    //check whether data is available or not
+                    if($count>0)
+           {
+
+             //we have data in database 
+             //get the data and display
+
+             while($row=mysqli_fetch_assoc($res))
+             {
+              
+               $department = $row['department_name'];
+              
+            ?>
+               <!-- <option value="" disabled selected> Courses</option> -->
+              <option value="<?php echo $department; ?>"> <?php echo $department;  ?>  </option> 
+              
+           
+           
+            <?php
+
+             }
+            }
+              ?>
+               </select>
+          </div>
+      </div> 
 
 
 
@@ -138,6 +185,7 @@
     $dob = $_POST['dob'];             
     $email = $_POST['email'];
     $contact = $_POST['contact'];
+    $department = $_POST['department_name'];
     $course = $_POST['course_name'];
     $status = $_POST['status'];
     $pdf = $_FILES['pdf'];
@@ -185,8 +233,8 @@
    
 
    // save the order in database 
-    $sql = "insert into student_tbl (apply_id,name,father_name,email,mobile,certificate,course,dob,address,status) 
-    values('$apply_Id', '$name','$father_name','$email','$contact','$pdf','$course','$dob', '$address', '$status') 
+    $sql = "insert into student_tbl (apply_id,name,father_name,email,mobile,certificate,department_name,course,dob,address,status) 
+    values('$apply_Id', '$name','$father_name','$email','$contact','$pdf','$department','$course','$dob', '$address', '$status') 
             ";
      // execute the query
       $res = mysqli_query($conn,$sql);

@@ -15,7 +15,7 @@ if(isset($_GET['id']))
   
   
      //SQL Query to Delete Data from Database
-     $sql = "delete from `job_tbl` where  `id` = $id ";
+     $sql = "delete from `job_vacancy_tbl` where  `id` = $id ";
 
      //Execute the Query
      $res = mysqli_query($conn, $sql);

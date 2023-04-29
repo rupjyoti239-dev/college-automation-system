@@ -1,52 +1,80 @@
 <?php include('./navbar.php');  ?>
 
-<?php
-         
-
-      //create sql query to get all data
-       $sql = "select * from `applied_job_tbl` where `user_id`='$id'";
-
-     $res = mysqli_query($conn, $sql);
-     
-     $count= mysqli_num_rows($res);
-
-     if($count==1){
-       //get all the data
-       $row = mysqli_fetch_assoc($res);
-               // $id=$row['id'];
-               $subject = $row['subject_name'];
-               $course = $row['course'];
-               $semester = $row['semester'];
-               // $class = $row['class'];
-     } else{
-      //redirect
-       echo "<script>alert('Details not found');</script>";
-       echo "<script>location.href = 'teacher_dashboard.php';</script>";
-    }
- ?>
 
 
      <div class="main_container p-5">
-     <h3 class="h3 text-center bg-primary text-white rounded py-1 ">
-      View Attendance of: &nbsp;  <?php echo $subject; ?>,   <?php echo $course; ?> &nbsp;<?php echo $semester; ?> Semester
-     </h3>
-
+     
+     
+     <h3 class="h3 text-center bg-primary py-3 rounded text-white">View Monthly Attendance Record</h3>
 
 
     <form action="" method="POST" class="py-4 ">
-        <div class="d-flex justify-content-between">
-         <div> <h4>From</h4> <input type="date" name="startDate" value="" class="form-control" id="exampleCheck1"></div>
-         <div> <h4>To</h4> <input type="date" name="endDate" value="" class="form-control" id="exampleCheck1"></div>
+         <div class="w-50 d-flex justify-content-between">
+            <div>
+              <label for="dt1" class="form-label">From</label> 
+              <input type="date" name="startDate" value="" class="form-control" id="exampleCheck1">
+            </div>
+
+
+            <div>
+              <label for="dt1" class="form-label">From</label>
+              <input type="date" name="endDate" value="" class="form-control" id="exampleCheck1">
+            </div>
+         </div>
+
+
+         <div class="w-25 mt-5">
+            <div>
+              <label for="course" class="form-label">Subject Name: </label>
+            <select name="subject_name" id="subject" class="form-control" required>
+                <?php  
+                    //get the data from database
+                     $sql = "SELECT * FROM `subject_tbl` where `teacher_id`='$t_id'  ";
+
+                     //execute the query
+                     $res= mysqli_query($conn,$sql);
+
+                    //count rows
+                     $count = mysqli_num_rows($res);
+
+                    //check whether data is available or not
+                    if($count>0)
+           {
+
+             //we have data in database 
+             //get the data and display
+
+             while($row=mysqli_fetch_assoc($res))
+             {
+              
+               $subject = $row['subject_name'];
+              
+            ?>
+                <!-- <option value="" disabled selected> Courses</option> -->
+                <option value="<?php echo $subject; ?>">
+                    <?php echo $subject;  ?>
+                </option>
+
+
+
+                <?php
+
+             }
+            }
+              ?>
+            </select>
+            </div>
+
        </div>
        
        <input type="submit" class="btn btn-primary mt-3" name="submit" value="Check" class="btn-secondary">
     </form>
+    <div class="d-flex justify-content-end"><Button class="btn btn-success" id="downloadexcel">Export To Excel</Button></div>
 
 
 
-<div class="d-flex justify-content-end"><a href="" class="btn btn-sm btn-primary">Print</a></div>
 
-    <table class="table table-striped mt-4">
+    <table class="table table-striped mt-4" id="table-1">
   <thead class="bg-secondary text-white">
     <tr>
       <th scope="col">S.N</th>
@@ -62,13 +90,18 @@
     </tr>
   </thead>
 
-  <?php
 
+
+
+
+
+<?php
 if(isset($_POST['submit']))
 {
  // echo "clicked";
 $startDate = $_POST['startDate'];
  $endDate = $_POST['endDate'];
+ $subject = $_POST['subject_name'];
 
 
       $sql = "SELECT * FROM `attendance_tbl` WHERE `subject`='$subject'   AND  date BETWEEN '$startDate' AND '$endDate' ";
@@ -136,7 +169,7 @@ $startDate = $_POST['startDate'];
                     ?>
 
                     <tr>
-                       <td colspan="10"><div class="error">No data found</div></td>
+                       <td colspan="10"><div class="error">Data not found</div></td>
                     </tr>
 
 
@@ -170,3 +203,4 @@ $startDate = $_POST['startDate'];
 
 
 <?php include('./footer.php');  ?>     
+

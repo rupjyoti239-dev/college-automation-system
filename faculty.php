@@ -201,8 +201,8 @@ session_start();?>
            echo  "<script>location.href='teacher/teacher_dashboard.php';</script>";
         }
        else{
-         echo  "<script>location.href='faculty.php';</script>";
          echo '<script>alert("teacher Login failed");</script>';
+         echo  "<script>location.href='faculty.php';</script>";
          
        }
 }

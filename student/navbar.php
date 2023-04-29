@@ -1,7 +1,7 @@
 <?php 
 include('../config/connection.php');
 include('student_login_check.php');   
-$id = $_SESSION['student_id'];
+$s_id = $_SESSION['student_id'];
 
 ?>
 
@@ -47,7 +47,7 @@ $id = $_SESSION['student_id'];
 
 
            <li>
-            <a href="teacher_dashboard.php"><i class="bi bi-view-stacked"></i> &nbsp; DASHBOARD</a>
+            <a href="student_dashboard.php"><i class="bi bi-view-stacked"></i> &nbsp; DASHBOARD</a>
            </li>
 
           
@@ -55,14 +55,14 @@ $id = $_SESSION['student_id'];
            <li>
             <a href=""><i class="bi bi-person-square"></i> &nbsp; Course</a>
             <ul class="submenu">
-                   <li><a href="student_info.php">Student Info</a></li>
+                   <li><a href="course_info.php">Course Info</a></li>
                </ul>
           </li>
 
           <li>
             <a href=""><i class="bi bi-bookmarks"></i> &nbsp; ATTENDANCE</a>
             <ul class="submenu">
-                   <li><a href="add_department.php">Check Attendance</a></li>
+                   <li><a href="check_attendance.php">Check Attendance</a></li>
                    
                </ul>
           </li>

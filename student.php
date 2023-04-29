@@ -105,7 +105,7 @@ session_start();?>
 
 
         <div class="d-flex pb-3">
-          <input type="text" class="form-control mx-2" name="userid" placeholder="User Id" required>
+          <input type="text" class="form-control mx-2" name="user_id" placeholder="User Id" required>
           <input type="text" class="form-control mx-2" name="password" placeholder="Password" required>
         </div>
 
@@ -181,23 +181,26 @@ session_start();?>
   if(isset($_POST['login']))
   {
 
-    $id = $_POST['userid'];
+
+    // echo "clicked";
+    $id = $_POST['user_id'];
     $password = $_POST['password'];
     
 
     
 
-      $sql="SELECT * FROM student_tbl WHERE user_id ='$id' AND  `password` ='$password'";
+       $sql="SELECT * FROM student_tbl WHERE user_id ='$id' AND `password` ='$password'";
       $res=mysqli_query($conn,$sql);
       $count = mysqli_num_rows($res);
-      if($count == 1)
+      if($count <= 1)
         {
-           session_start();
+            session_start();
+           $_SESSION['login-success'] = '<div class="aletr alert-success text-center py-2 px-2">login Successfully.</div>';
            $_SESSION['student_id'] = $id;
            echo  "<script>location.href='student/student_dashboard.php';</script>";
         }
        else{
-         echo  "<script>location.href='student.php';</script>";
+         // echo  "<script>location.href='login.php';</script>";
          echo '<script>alert("Student Login failed");</script>';
          
        }

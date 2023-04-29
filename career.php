@@ -105,7 +105,7 @@ session_start();?>
   <?php
 
              //query to get the data from database
-             $sql = " SELECT * FROM job_tbl ";
+             $sql = " SELECT * FROM job_vacancy_tbl ";
 
               //execute the query
             $res = mysqli_query($conn,$sql);
@@ -124,6 +124,7 @@ session_start();?>
                 $post_name = $row['vacancy_name'];
                 $job_details = $row['job_details'];
                 $salary = $row['salary'];
+                $dept = $row['department_name'];
                 $date = $row['last_date'];
                 $qualification = $row['qualification'];
                 ?>
@@ -136,6 +137,7 @@ session_start();?>
           <h3 class="h4"><?php echo $post_name; ?></h3>
           <p>&nbsp; &nbsp; <?php echo $job_details ?></p>
           <p>&nbsp; &nbsp; Salary: <span class="fw-bold"><?php echo $salary; ?></span></p>
+          <p>&nbsp; &nbsp; Department: <?php echo $dept; ?></p>
           <p>&nbsp; &nbsp; last Date: <?php echo $date; ?></p>
           <p>&nbsp; &nbsp; <span class="fw-bold">Qualifications:</span> <?php echo $qualification; ?></p>
           <a href="./job_apply.php" class="btn btn-primary btn-sm">Apply</a>

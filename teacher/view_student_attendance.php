@@ -1,43 +1,23 @@
 <?php include('./navbar.php');  ?>
 
 
-<?php
-         
 
-      //create sql query to get all data
-       $sql = "select * from `applied_job_tbl` where `user_id`='$id'";
-
-     $res = mysqli_query($conn, $sql);
-     
-     $count= mysqli_num_rows($res);
-
-     if($count==1){
-       //get all the data
-       $row = mysqli_fetch_assoc($res);
-               // $id=$row['id'];
-               $subject = $row['subject_name'];
-               $course = $row['course'];
-               $semester = $row['semester'];
-               // $class = $row['class'];
-     } else{
-      //redirect
-       echo "<script>alert('Details not found');</script>";
-       echo "<script>location.href = 'teacher_dashboard.php';</script>";
-    }
- ?>
 
      <div class="main_container p-5">
 
-
-      <h3 class="h3 text-center bg-primary text-white rounded py-1 ">
-      View Attendance of: &nbsp;  <?php echo $subject; ?>,   <?php echo $course; ?> &nbsp;<?php echo $semester; ?> Semester
-     </h3>
+     <h3 class="h3 text-center bg-primary py-3 rounded text-white">Student Attendance Record</h3>
+      
 
 
     <form action="" method="POST" class="py-4">
             <div class="my-3 row col-lg-2">
               <label for="exampleFormControlInput1" class="form-label ">Student name:</label>
               <input type="text" class="form-control" name="student_name" value="" id="exampleFormControlInput1" placeholder="name">
+            </div>
+
+            <div class="my-3 row col-lg-2">
+              <label for="exampleFormControlInput2" class="form-label ">Student Id:</label>
+              <input type="text" class="form-control" name="student_id" value="" id="exampleFormControlInput2" placeholder="Student Id">
             </div>
                
              <div class="d-flex justify-content-between">
@@ -49,8 +29,8 @@
     </form>
 
 
-<div class="d-flex justify-content-end"><a href="" class="btn btn-sm btn-primary">Print</a></div>
-<table class="table table-striped mt-4">
+ <div class="d-flex justify-content-end"><Button class="btn btn-success" id="downloadexcel">Export To Excel</Button></div>
+<table class="table table-striped mt-4" id="table-1">
   <thead class="bg-secondary text-white">
     <tr>
       <th scope="col">S.N</th>
@@ -74,9 +54,10 @@ if(isset($_POST['submit']))
 $startDate = $_POST['startDate'];
  $endDate = $_POST['endDate'];
  $name = $_POST['student_name'];
+ $s_id = $_POST['student_id'];
 
 
-      $sql = "SELECT * FROM `attendance_tbl` WHERE `subject`='$subject' AND student_name= '$name'  AND  date BETWEEN '$startDate' AND '$endDate' ";
+      $sql = "SELECT * FROM `attendance_tbl` WHERE  user_id='$s_id' AND student_name= '$name'  AND  date BETWEEN '$startDate' AND '$endDate' ";
       
 
       //execute the query

@@ -1,9 +1,9 @@
 <?php include('./navbar.php');  ?>
 
 
-<div class="main_container p-5">
+<div class="main_container ">
 
-  <h1 class="text-center h3 fw-bold">Update New Vacancy</h1>
+  <h1 class="text-center h3 fw-bold mt-5">Update New Vacancy</h1>
 
   <form action="" method="POST" >
 
@@ -35,6 +35,48 @@
         <textarea name="qualification"  class="form-control" id="qualification" cols="30" required></textarea>
       </div>  
 
+
+       <div class="pb-3 ">
+            <label for="department">Department Name: </label>
+            <select name="department_name" id="department" class="form-control" required>
+                <?php  
+                    //get the data from database
+                     $sql = "SELECT * FROM department_tbl  ";
+
+                     //execute the query
+                     $res= mysqli_query($conn,$sql);
+
+                    //count rows
+                     $count = mysqli_num_rows($res);
+
+                    //check whether data is available or not
+                    if($count>0)
+           {
+
+             //we have data in database 
+             //get the data and display
+
+             while($row=mysqli_fetch_assoc($res))
+             {
+              
+               $dept = $row['department_name'];
+              
+            ?>
+                <!-- <option value="" disabled selected> Courses</option> -->
+                <option value="<?php echo $dept; ?>">
+                    <?php echo $dept;  ?>
+                </option>
+
+
+
+                <?php
+
+             }
+            }
+              ?>
+            </select>
+        </div>
+
       <div class="mb-3">
         <input type="submit" value="UPLOAD" name="upload" class="btn btn-primary">
       </div>
@@ -44,6 +86,8 @@
 
 
   </form>
+
+  
 </div>
 
 
@@ -64,12 +108,13 @@
     $job_details = $_POST['job_details'];             
     $salary = $_POST['salary'];
     $date = $_POST['date'];
+    $dept = $_POST['department_name'];
     $qualification = $_POST['qualification'];
    
 
    // save the order in database 
-    $sql = "insert into job_tbl (vacancy_name,salary,qualification,job_details,last_date) 
-    values( '$post_name','$salary','$qualification','$job_details','$date' ) 
+    $sql = "insert into job_vacancy_tbl (vacancy_name,salary,qualification,job_details,department_name,last_date) 
+    values( '$post_name','$salary','$qualification','$job_details','$dept','$date' ) 
             ";
      // execute the query
       $res = mysqli_query($conn,$sql);

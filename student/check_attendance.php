@@ -1,27 +1,25 @@
-<?php include('./navbar.php');  ?>
+<?php include('./navbar.php'); ?> 
 
 
+ <div class="main_container p-5">
 
+<form action="" method="POST" class="py-4">
+            
 
+           
+               
+             <div class="d-flex justify-content-between">
+              <div> <h4>From</h4> <input type="date" name="startDate" value="" class="form-control" id="exampleCheck1"></div>
+              <div> <h4>To</h4> <input type="date" name="endDate" value="" class="form-control" id="exampleCheck1"></div>
+            </div>
 
-
-
-
-
-     <div class="main_container p-5">
-  <?php $date =  date("Y-m-d");  ?>
-  
-<h3 class="text-center h4 py-1 rounded bg-primary text-white my-5 py-3">Today's Attendance (<?php echo $date; ?>)</h3>
-
-
-  <form action="" method="POST">
-     <div class="w-25 mt-5">
+            <div class="w-25 mt-5">
             <div>
-              <label for="course" class="form-label">Subject Name: </label>
-            <select name="subject_name" id="subject" class="form-control" required>
+              <label for="subject" class="form-label">Subject Name: </label>
+            <select name="subject" id="subject" class="form-control" required>
                 <?php  
                     //get the data from database
-                     $sql = "SELECT * FROM `subject_tbl` where `teacher_id`='$t_id'  ";
+                     $sql = "SELECT * FROM `subject_tbl` where `course_name`='bca'  ";
 
                      //execute the query
                      $res= mysqli_query($conn,$sql);
@@ -58,42 +56,38 @@
             </div>
 
        </div>
+            
+            <input type="submit" class="btn btn-primary mt-3" name="submit" value="Check" class="btn-secondary">
+    </form>
 
 
-             <input type="submit" class="btn btn-primary mt-3" name="submit" value="Check" class="btn-secondary">
-
-       </form>
-
-      
-        
-
-
-<table class="table table-striped mt-4">
+ <div class="d-flex justify-content-end"><Button class="btn btn-success" id="downloadexcel">Export To Excel</Button></div>
+<table class="table table-striped mt-4" id="table-1">
   <thead class="bg-secondary text-white">
     <tr>
       <th scope="col">S.N</th>
       <th scope="col">Name</th>
-      <th scope="col">Contact</th>
       <th scope="col">Course</th>
       <th scope="col">Semester</th>
-      <th scope="col">Contact No</th>
-      <th scope="col">Registration No</th>
+      <th scope="col">Subject</th>
       <th scope="col">Date</th>
       <th scope="col" >Attendance</th>
-     
      
     </tr>
   </thead>
 
   <?php
 
-     if(isset($_POST['submit']))
-      {
-       // echo "clicked";
-      $subject = $_POST['subject_name'];
+if(isset($_POST['submit']))
+{
+ // echo "clicked";
+$startDate = $_POST['startDate'];
+ $endDate = $_POST['endDate'];
+ $subject = $_POST['subject'];
 
 
-      $sql = "SELECT * FROM `attendance_tbl` WHERE `subject`='$subject' AND date ='$date' ";
+
+      $sql = "SELECT * FROM `attendance_tbl` WHERE  user_id='$s_id' AND  date BETWEEN '$startDate' AND '$endDate' AND `subject`='$subject' ";
       
 
       //execute the query
@@ -114,13 +108,11 @@
 
              while($row=mysqli_fetch_assoc($res))
              {
-                $id = $row['id'];
+               $id = $row['id'];
                $name = $row['student_name'];
-               $contact = $row['student_contact'];
                $course = $row['course'];
                $semester = $row['semester'];
-               $subject = $row['subject'];
-               $id = $row['user_id'];
+               $sub = $row['subject'];
                $date = $row['date'];
                $attendance = $row['attendance'];
 
@@ -136,15 +128,13 @@
       <td scope="row"><?php echo $sn++ ; ?></td>
      
                                     
-       <td><?php echo $name; ?></td>
-      <td><?php echo $contact; ?></td>
+      <td><?php echo $name; ?></td>
       <td><?php echo $course; ?></td>
       <td><?php echo $semester; ?></td>
-      <td><?php echo $subject; ?></td>
-      <td><?php echo $id; ?></td>
+      <td><?php echo $sub; ?></td>
       <td><?php echo $date; ?></td>
       <td><?php echo $attendance; ?></td>
-      
+      <td>
 
     
      
@@ -179,13 +169,13 @@
 
 
 
+ 
 
 
 
 
 
-
-    </div>
+</div>
 
 
 <?php include('./footer.php');  ?>     

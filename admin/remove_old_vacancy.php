@@ -10,13 +10,14 @@
         <th scope="col">S.N</th>
         <th scope="col">Vacancy Name</th>
         <th scope="col">job Details</th>
+        <th scope="col">Department</th>
         <th scope="col">Last Date</th>
         <th scope="col">Action</th>
       </tr>
     </thead>
 
     <?php
-      $sql = "SELECT * FROM `job_tbl`  " ;
+      $sql = "SELECT * FROM `job_vacancy_tbl`  " ;
 
       //execute the query
       $res = mysqli_query($conn,$sql);
@@ -40,6 +41,7 @@
               $job_name = $row['vacancy_name'];
               $details = $row['job_details'];
               $date = $row['last_date'];
+              $dept = $row['department_name'];
              
 
                 ?>
@@ -54,6 +56,9 @@
         </td>
         <td class="w-50">
           <?php echo $details; ?>
+        </td>
+        <td>
+          <?php echo $dept; ?>
         </td>
         <td>
           <?php echo $date; ?>
